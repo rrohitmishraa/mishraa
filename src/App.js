@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import { AuthContextProvider, UserAuth } from "./context/AuthContext";
+import { UsernameContextProvider } from "./context/UserContext";
+import Dashboard from "./components/Dashboard";
+import Four04 from "./components/Four04";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="box">
+      {/* Header */}
+
+      <UsernameContextProvider>
+        <AuthContextProvider>
+          <Navbar />
+          <div className="route-container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/:username" element={<Profile />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/notfound" element={<Four04 />} />
+            </Routes>
+          </div>
+        </AuthContextProvider>
+      </UsernameContextProvider>
+
+      {/*  FOOTER */}
+      <Footer />
     </div>
   );
 }
-
-export default App;
